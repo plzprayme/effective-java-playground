@@ -7,11 +7,16 @@ import java.util.List;
 import chap9.forloop.AUSG;
 import chap9.forloop.Member;
 import chap9.reflection.ParentBook;
+import chap9.reflection.di.service.BookService;
+import chap9.reflection.di.service.InjectService;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         // forloop();
-        reflection();
+        // reflection();
+
+        BookService service = new InjectService().init(new BookService());
+        System.out.println(service.callH());
     }
 
     private static void reflection() throws Exception {
@@ -25,8 +30,9 @@ public class Main {
 
         // workWithConstructor(bookClass);
         // workWithModifier(bookClass);
-        workWithMethod(bookClass);
+        // workWithMethod(bookClass);
     }
+
 
     private static void workWithMethod(Class<ParentBook> bookClass) throws Exception {
         Method[] ms = bookClass.getDeclaredMethods(); // 메서드 다 가져오기
