@@ -17,6 +17,19 @@ public class MethodTest {
     static Class<ParentBook> bookClass;
     static ParentBook instance;
 
+
+    @Test
+    public void 메서드를_실행할_수_있다() throws ReflectiveOperationException {
+        // given
+        Method method = bookClass.getMethod("h");
+
+        // when
+        String actual = method.invoke(instance).toString();
+
+        // then
+        assertEquals(actual, "METHOD");
+    }
+
     @BeforeAll
     public static void given() {
         instance = new ParentBook();
@@ -50,18 +63,5 @@ public class MethodTest {
         return Arrays.stream(methods)
             .map(Method::toString)
             .collect(Collectors.toList());
-    }
-
-    @Test
-    public void 메서드를_실행할_수_있다() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        // given
-        Method method = bookClass.getMethod("h");
-        String expected = instance.h();
-
-        // when
-        String actual = method.invoke(instance).toString();
-
-        // then
-        assertEquals(actual, expected);
     }
 }

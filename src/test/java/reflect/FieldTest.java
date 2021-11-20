@@ -22,15 +22,16 @@ public class FieldTest {
     }
 
     @Test
-    public void Public_필드_값을_읽을_수_있다_() {
+    public void 필드_정보를_읽을_수_있다_() {
         // given
+        Class<ParentBook> bookClass = ParentBook.class;
         List<String> expected = List.of(
-            "public java.lang.String chap9.reflection.ParentBook.d",
+            "private java.lang.String chap9.reflection.ParentBook.d",
             "public static java.lang.String chap9.reflection.ParentBook.e"
         );
 
         // when
-        List<String> actual = getStringList(bookClass.getFields());
+        List<String> actual = getStringList(bookClass.getDeclaredFields());
 
         // then
         assertEquals(actual, expected);
