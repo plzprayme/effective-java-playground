@@ -1,8 +1,11 @@
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import chap9.forloop.AUSG;
 import chap9.forloop.Member;
@@ -15,12 +18,13 @@ public class Main {
         // forloop();
         // reflection();
 
-        BookService service = new InjectService().init(new BookService());
-        System.out.println(service.callH());
+        // BookService service = new InjectService().init(new BookService());
+        // System.out.println(service.callH());
     }
 
     private static void reflection() throws Exception {
         Class<ParentBook> bookClass = get();
+
         // printFields(bookClass);
         // printFieldsValue(bookClass);
         // printConstructor(bookClass);
@@ -46,32 +50,32 @@ public class Main {
         System.out.println(m2.invoke(new ParentBook()));
     }
 
-    private static void workWithConstructor(Class<ParentBook> bookClass) throws Exception {
-        Constructor<ParentBook> c1 = bookClass.getConstructor(null); // 기본 생성자
-        Constructor<ParentBook> c2 = bookClass.getConstructor(String.class, String.class, String.class); // 파라미터에 맞는 생성자
-
-        ParentBook book = new ParentBook();
-        ParentBook i1 = c1.newInstance();
-        ParentBook i2 = c2.newInstance("a", "b", "c"); // 리플렉션으로 Constructor로 생성하기
-        System.out.println(i1);
-        System.out.println(i2);
-    }
+    // private static void workWithConstructor(Class<ParentBook> bookClass) throws Exception {
+    //     Constructor<ParentBook> c1 = bookClass.getConstructor(null); // 기본 생성자
+    //     Constructor<ParentBook> c2 = bookClass.getConstructor(String.class, String.class, String.class); // 파라미터에 맞는 생성자
+    //
+    //     ParentBook book = new ParentBook();
+    //     ParentBook i1 = c1.newInstance();
+    //     ParentBook i2 = c2.newInstance("a", "b", "c"); // 리플렉션으로 Constructor로 생성하기
+    //     System.out.println(i1);
+    //     System.out.println(i2);
+    // }
 
     private static void workWithModifier(Class<ParentBook> bookClass) {
         Arrays.stream(bookClass.getDeclaredFields())
             .forEach(f -> System.out.println(Modifier.isPrivate(f.getModifiers())));
     }
 
-    private static void printConstructor(Class<ParentBook> bookClass) throws Exception {
-        Constructor<?>[] cs = bookClass.getConstructors();
-        Constructor<ParentBook> c1 = bookClass.getConstructor(null); // 기본 생성자
-        Constructor<ParentBook> c2 = bookClass.getConstructor(String.class, String.class, String.class); // 파라미터에 맞는 생성자
-        Arrays.stream(cs).forEach(System.out::println);
-
-        ParentBook book = new ParentBook();
-        ParentBook i1 = c1.newInstance();
-        ParentBook i2 = c2.newInstance("a", "b", "c"); // Constructor로 생성하기
-    }
+    // private static void printConstructor(Class<ParentBook> bookClass) throws Exception {
+    //     Constructor<?>[] cs = bookClass.getConstructors();
+    //     Constructor<ParentBook> c1 = bookClass.getConstructor(null); // 기본 생성자
+    //     Constructor<ParentBook> c2 = bookClass.getConstructor(String.class, String.class, String.class); // 파라미터에 맞는 생성자
+    //     Arrays.stream(cs).forEach(System.out::println);
+    //
+    //     ParentBook book = new ParentBook();
+    //     ParentBook i1 = c1.newInstance();
+    //     ParentBook i2 = c2.newInstance("a", "b", "c"); // Constructor로 생성하기
+    // }
 
     private static void printFieldsValue(Class<ParentBook> bookClass) {
         ParentBook book = new ParentBook();

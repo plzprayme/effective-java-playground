@@ -1,4 +1,4 @@
-package reflect;
+package reflect.tutorial;
 
 import static org.junit.jupiter.api.Assertions.*;
 
