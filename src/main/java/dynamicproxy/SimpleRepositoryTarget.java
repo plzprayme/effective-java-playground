@@ -3,7 +3,7 @@ package dynamicproxy;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SimpleRepositoryProxy implements SimpleRepositoryInterface {
+public class SimpleRepositoryTarget implements SimpleRepositoryInterface {
 
 	private static Long id = 1L;
 

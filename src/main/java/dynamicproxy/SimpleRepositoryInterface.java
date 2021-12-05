@@ -8,5 +8,4 @@ public interface SimpleRepositoryInterface {
 	Stock findById(Long id);
 
 	void save(Stock entity);
-
 }

@@ -21,10 +21,12 @@ public class MethodTest {
     @Test
     public void 메서드를_실행할_수_있다() throws ReflectiveOperationException {
         // given
-        Method method = bookClass.getMethod("h");
+        Class<ParentBook> parentBookClass = ParentBook.class;
+        Method method = parentBookClass.getMethod("h");
 
         // when
-        String actual = method.invoke(instance).toString();
+        ParentBook parentBookInstance = new ParentBook();
+        String actual = method.invoke(parentBookInstance).toString();
 
         // then
         assertEquals(actual, "METHOD");
